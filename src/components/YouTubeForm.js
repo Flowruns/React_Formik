@@ -18,41 +18,6 @@ const onSubmit = values => {
     console.log('Данные формы', values)
 }
 
-// Функция валидации полей
-const validate = values => {
-
-    // Создаем объект 
-    let errors = {}
-
-    // Если имя не заполнено
-    if (!values.name) {
-
-        // Тогда поле имени является обязательным для заполнения
-        errors.name = 'Required'
-    }
-
-    // Если почта не заполнена
-    if (!values.email) {
-
-        // Тогда поле ввода почты является обязательным для заполнения
-        errors.email = 'Required'
-
-        // Иначе если заполнено, то проверяем введенный формат почты
-    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
-        errors.email = 'Неверный формат почты'
-    }
-
-    // Если канал не заполнен
-    if (!values.channel) {
-
-        // Тогда поле ввода канала является обязательным для заполнения
-        errors.channel = 'Required'
-    }
-
-    // Возвращаем олбъект
-    return errors
-}
-
 // Определяем схему объекта проверки с помощью библиотеки Yup
 const validationSchema = Yup.object({
     
@@ -94,10 +59,8 @@ const YouTubeForm = () => {
                     <input 
                         type='text' 
                         id='name' 
-                        name='name' 
-                        onChange={formik.handleChange} 
-                        value={formik.values.name} 
-                        onBlur={formik.handleBlur}
+                        name='name'
+                        {...formik.getFieldProps('name')}
                     />
                     {formik.touched.name && formik.errors.name ? <div className='error'>{formik.errors.name}</div> : null}
                 </div>
@@ -106,10 +69,8 @@ const YouTubeForm = () => {
                     <input 
                         type='email' 
                         id='email' 
-                        name='email' 
-                        onChange={formik.handleChange}
-                        value={formik.values.email} 
-                        onBlur={formik.handleBlur}
+                        name='email'
+                        {...formik.getFieldProps('email')}
                     />
                     {formik.touched.email && formik.errors.email ? <div className='error'>{formik.errors.email}</div> : null}
                 </div>
@@ -118,10 +79,8 @@ const YouTubeForm = () => {
                     <input 
                         type='text' 
                         id='channel' 
-                        name='channel' 
-                        onChange={formik.handleChange}
-                        value={formik.values.channel} 
-                        onBlur={formik.handleBlur}
+                        name='channel'
+                        {...formik.getFieldProps('channel')}
                     />
                     {formik.touched.channel && formik.errors.channel ? <div className='error'>{formik.errors.channel}</div> : null}
                 </div>
