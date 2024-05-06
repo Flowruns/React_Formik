@@ -85,7 +85,7 @@ const YouTubeForm = () => {
                         value={formik.values.name} 
                         onBlur={formik.handleBlur}
                     />
-                    {formik.errors.name ? <div className='error'>{formik.errors.name}</div> : null}
+                    {formik.touched.name && formik.errors.name ? <div className='error'>{formik.errors.name}</div> : null}
                 </div>
                 <div className='form-control'>
                     <label htmlFor='email'>E-mail</label>
@@ -97,7 +97,7 @@ const YouTubeForm = () => {
                         value={formik.values.email} 
                         onBlur={formik.handleBlur}
                     />
-                    {formik.errors.email ? <div className='error'>{formik.errors.email}</div> : null}
+                    {formik.touched.email && formik.errors.email ? <div className='error'>{formik.errors.email}</div> : null}
                 </div>
                 <div className='form-control'>
                     <label htmlFor='channel'>Channel</label>
@@ -109,7 +109,7 @@ const YouTubeForm = () => {
                         value={formik.values.channel} 
                         onBlur={formik.handleBlur}
                     />
-                    {formik.errors.channel ? <div className='error'>{formik.errors.channel}</div> : null}
+                    {formik.touched.channel && formik.errors.channel ? <div className='error'>{formik.errors.channel}</div> : null}
                 </div>
                 <button type='submit'>Submit</button>
             </form>
