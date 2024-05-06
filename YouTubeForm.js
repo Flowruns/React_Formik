@@ -10,7 +10,11 @@ const initialValues = {
     email: '',
     channel: '',
     comments: '',
-    address: ''
+    address: '',
+    social: {
+        facebook: '',
+        twitter: ''
+    }
 }
 
 /**
@@ -96,7 +100,7 @@ const YouTubeForm = () => {
                                 console.log("Пропс", props)
                                 return (
                                     <div>
-                                        <input type= 'text' id='address' {...field}/>
+                                        <input type='text' id='address' {...field}/>
                                         {meta.touched && meta.error ? <div>{meta.error}</div> : null}
                                     </div>
                                 )
@@ -104,6 +108,22 @@ const YouTubeForm = () => {
                         }
                     </Field>
                     <ErrorMessage name='channel'/>
+                </div>
+                <div className='form-control'>
+                    <label htmlFor='facebook'>Facebook profile</label>
+                    <Field
+                        type='text'
+                        id='facebook'
+                        name='social.facebook'
+                    />
+                </div>
+                <div className='form-control'>
+                    <label htmlFor='twitter'>Twitter profile</label>
+                    <Field
+                        type='text'
+                        id='twitter'
+                        name='social.twitter'
+                    />
                 </div>
                 <button type='submit'>Submit</button>
             </Form>
