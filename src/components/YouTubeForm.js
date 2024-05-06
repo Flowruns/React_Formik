@@ -1,5 +1,6 @@
 ﻿import React from 'react';
 import {useFormik} from 'formik'
+import * as Yup from 'yup'
 
 
 // Объект, соджержащий начальные значения для всех полей формы
@@ -52,6 +53,18 @@ const validate = values => {
     return errors
 }
 
+// Определяем схему объекта проверки с помощью библиотеки Yup
+const validationSchema = Yup.object({
+    
+    // Для поля имени
+    name: Yup.string().required('Поле не заполнено'),
+    
+    // Для поля почты, тут устанавливаем еще и проверку на верный формат почты
+    email: Yup.string().email('Неверный формат почты').required('Поле не заполнено'),
+    
+    // Для поля канала
+    channel: Yup.string().required('Поле не заполнено')
+})
 
 /**
  * Компонент форма для ютуб
@@ -68,7 +81,8 @@ const YouTubeForm = () => {
         onSubmit,
 
         // Валидация полей
-        validate,
+        //validate,
+        validationSchema
     })
 
     // Возвращаем JSX элемент, который содержит структуру компонента из трех полей
