@@ -8,7 +8,8 @@ const initialValues = {
     name: 'Иван',
     email: '',
     channel: '',
-    comments: ''
+    comments: '',
+    address: ''
 }
 
 /**
@@ -75,10 +76,28 @@ const YouTubeForm = () => {
                 <div className='form-control'>
                     <label htmlFor='comments'>Comments</label>
                     <Field
-                        component = 'textarea'
+                        as='textarea'
                         id='comments'
                         name='comments'
                     />
+                    <ErrorMessage name='channel'/>
+                </div>
+                <div className='form-control'>
+                    <label htmlFor='address'>Address</label>
+                    <Field name='address'>
+                        {
+                            (props) => {
+                                const {field, form, meta} = props
+                                console.log("Пропс", props)
+                                return (
+                                    <div>
+                                        <input type= 'text' id='address' {...field}/>
+                                        {meta.touched && meta.error ? <div>{meta.error}</div> : null}
+                                    </div>
+                                )
+                            }
+                        }
+                    </Field>
                     <ErrorMessage name='channel'/>
                 </div>
                 <button type='submit'>Submit</button>
