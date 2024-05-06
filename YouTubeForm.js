@@ -41,6 +41,27 @@ const validationSchema = Yup.object({
 })
 
 /**
+ * Валидация на уровне поля
+ * @param value - значение из поля, в котором присутствует функция
+ * @returns {string} - строка, указывающая об ошибке
+ */
+const validateComments = value => {
+    
+    // Объявляем ошибку
+    let error
+    
+    // Проверяем пусто ли значение
+    if (!value) {
+        
+        // Присваиваем ей сообщение
+        error = 'Поле не заполнено'
+    }
+    
+    // Возвращаем ошибку
+    return error
+} 
+
+/**
  * Компонент форма для ютуб
  */
 const YouTubeForm = () => {
@@ -90,8 +111,9 @@ const YouTubeForm = () => {
                         as='textarea'
                         id='comments'
                         name='comments'
+                        validate={validateComments}
                     />
-                    <ErrorMessage name='channel'/>
+                    <ErrorMessage name='comments' component={TextError} />
                 </div>
                 <div className='form-control'>
                     <label htmlFor='address'>Address</label>
