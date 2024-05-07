@@ -1,4 +1,4 @@
-﻿import React from 'react';
+﻿import React, {useState} from 'react';
 import {Formik, Form, Field, ErrorMessage, FieldArray} from 'formik'
 import * as Yup from 'yup'
 import TextError from "./TextError";
@@ -11,6 +11,21 @@ const initialValues = {
     channel: '',
     comments: '',
     address: '',
+    social: {
+        facebook: '',
+        twitter: ''
+    },
+    phoneNumbers: ['', ''],
+    phNumbers: ['']
+}
+
+// Объект, соджержащий сохраненные значения для всех полей формы
+const savedValues = {
+    name: 'Иван',
+    email: 'Ivan@mail.ru',
+    channel: 'Vanko',
+    comments: 'This is true comment',
+    address: '35 Kirova street',
     social: {
         facebook: '',
         twitter: ''
@@ -70,14 +85,16 @@ const validateComments = value => {
  */
 const YouTubeForm = () => {
 
+    // Состояние значений полей формы
+    const [formValues, setFormValues] = useState(null)
     
     // Возвращаем JSX элемент, который содержит структуру компонента из трех полей
     return (
         <Formik
-            initialValues={initialValues}
+            initialValues={formValues || initialValues }
             validationSchema={validationSchema}
             onSubmit={onSubmit}
-            
+            enableReinitialize
         >
             {formik => {
                 console.log('Пропсы формика', formik)
@@ -203,6 +220,7 @@ const YouTubeForm = () => {
                         }}
                     </FieldArray>
                 </div>
+                <button type='button' onClick={() => setFormValues(savedValues)}>Загрузить</button>
                 <button type='submit' disabled={!formik.isValid || formik.isSubmitting}>Отправить</button>
             </Form>
                 )
