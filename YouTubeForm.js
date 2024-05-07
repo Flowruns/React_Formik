@@ -44,6 +44,9 @@ const onSubmit = (values, onSubmitProps ) => {
     
     // Активируем кнопку "Отправить"
     onSubmitProps.setSubmitting(false)
+    
+    // Сбрасываем форму после отправки данных
+    onSubmitProps.resetForm()
 }
 
 // Определяем схему объекта проверки с помощью библиотеки Yup
@@ -220,6 +223,7 @@ const YouTubeForm = () => {
                         }}
                     </FieldArray>
                 </div>
+                <button type='reset'>Отмена</button>
                 <button type='button' onClick={() => setFormValues(savedValues)}>Загрузить</button>
                 <button type='submit' disabled={!formik.isValid || formik.isSubmitting}>Отправить</button>
             </Form>
