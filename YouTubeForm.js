@@ -23,8 +23,12 @@ const initialValues = {
  * Метод, принимающий состояние формы
  * Всегда получает последнее значение формы в качестве аргумента
  */
-const onSubmit = values => {
+const onSubmit = (values, onSubmitProps ) => {
     console.log('Данные формы', values)
+    console.log('Данные для отправки', onSubmitProps)
+    
+    // Активируем кнопку "Отправить"
+    onSubmitProps.setSubmitting(false)
 }
 
 // Определяем схему объекта проверки с помощью библиотеки Yup
@@ -66,16 +70,21 @@ const validateComments = value => {
  */
 const YouTubeForm = () => {
 
+    
     // Возвращаем JSX элемент, который содержит структуру компонента из трех полей
     return (
         <Formik
             initialValues={initialValues}
             validationSchema={validationSchema}
             onSubmit={onSubmit}
+            
         >
+            {formik => {
+                console.log('Пропсы формика', formik)
+                return (
             <Form>
                 <div className='form-control'>
-                    <label htmlFor='name'>Name</label>
+                    <label htmlFor='name'>Имя</label>
                     <Field
                         type='text'
                         id='name'
@@ -97,7 +106,7 @@ const YouTubeForm = () => {
                     </ErrorMessage>
                 </div>
                 <div className='form-control'>
-                    <label htmlFor='channel'>Channel</label>
+                    <label htmlFor='channel'>Канал</label>
                     <Field
                         type='text'
                         id='channel'
@@ -106,7 +115,7 @@ const YouTubeForm = () => {
                     <ErrorMessage name='channel'/>
                 </div>
                 <div className='form-control'>
-                    <label htmlFor='comments'>Comments</label>
+                    <label htmlFor='comments'>Комментарии</label>
                     <Field
                         as='textarea'
                         id='comments'
@@ -116,7 +125,7 @@ const YouTubeForm = () => {
                     <ErrorMessage name='comments' component={TextError} />
                 </div>
                 <div className='form-control'>
-                    <label htmlFor='address'>Address</label>
+                    <label htmlFor='address'>Адрес</label>
                     <Field name='address'>
                         {
                             (props) => {
@@ -194,11 +203,13 @@ const YouTubeForm = () => {
                         }}
                     </FieldArray>
                 </div>
-                <button type='submit'>Submit</button>
+                <button type='submit' disabled={!formik.isValid || formik.isSubmitting}>Отправить</button>
             </Form>
+                )
+            }}
         </Formik>
-    );
-};
+)
+}
 
 // Импортируем компонент YouTubeForm
 export default YouTubeForm;
